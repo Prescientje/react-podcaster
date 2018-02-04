@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
-import logo from '../images/logo.svg';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 import '../styles/App.css';
 
-import Podcast from '../components/Podcast';
+import Home from '../components/Home';
+import LoginForm from '../components/LoginForm';
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">react-podcaster</h1>
-        </header>
-        <p className="App-intro">a site to upload and listen to podcasts</p>
+      <Router>
         <div>
-          <Podcast title="TestTitle"/>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/login">Login</Link></li>
+        </ul>
+
+        <hr />
+
+        <Route exact path="/" Component={Home}/>
+        <Route path="/login" Component={LoginForm}/>
         </div>
-      </div>
+      </Router>
     );
   }
 }
