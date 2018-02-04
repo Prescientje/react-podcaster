@@ -8,6 +8,7 @@ import '../styles/App.css';
 
 import Home from '../components/Home';
 import LoginForm from '../components/LoginForm';
+import '../styles/App.css'
 
 class App extends Component {
 
@@ -20,10 +21,8 @@ class App extends Component {
           <li><Link to="/login">Login</Link></li>
         </ul>
 
-        <hr />
-
-        <Route exact path="/" Component={Home}/>
-        <Route path="/login" Component={LoginForm}/>
+        <Route exact path="/" component={Home}/>
+        <Route path="/login" component={LoginForm}/>
         </div>
       </Router>
     );
