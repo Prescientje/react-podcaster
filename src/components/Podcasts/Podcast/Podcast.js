@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './podcast.css';
 
 class Podcast extends Component {
@@ -10,7 +11,7 @@ class Podcast extends Component {
             date: this.props.info.dateUploaded,
             title: this.props.info.title,
             uploader: this.props.info.uploader,
-            id: this.props.info.id
+            id: this.props.info._id
         }
     }
 
@@ -27,7 +28,7 @@ class Podcast extends Component {
                     <h5 className="card-title">{this.state.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">{this.state.uploader}</h6>
                     <p className="card-text">{this.state.description}</p>
-                    <a href="#" className="card-link btn-primary btn listen-link">Listen</a>
+                    <Link to={`/podcast/${this.state.id}`} className="card-link btn-primary btn listen-link">Listen</Link>
                 </div>
                 <div className="card-footer text-muted">
                     Uploaded on {this.formatDate(this.state.date)}

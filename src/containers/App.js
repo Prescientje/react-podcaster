@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, Redirect } from 'react-router-dom';
+import { Router, Route, Redirect } from 'react-router-dom';
 import history from './history';
 import 'styles/App.css';
 
@@ -7,6 +7,7 @@ import Home from 'containers/Home/Home';
 import LoginForm from 'components/Login/LoginForm';
 import RegisterForm from 'components/Register/RegisterForm';
 import Profile from 'containers/Profile/Profile';
+import PlayPodcast from 'containers/PlayPodcast/PlayPodcast';
 
 class App extends Component {
 
@@ -24,6 +25,7 @@ class App extends Component {
           </div>
           
           <Route exact path="/" component={Home}/>
+          <Route path="/podcast/:id" component={PlayPodcast}/>
           <AuthenticatedRoute path="/profile" component={Profile}/>
 
           <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
