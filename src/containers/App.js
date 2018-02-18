@@ -4,11 +4,11 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import '../styles/App.css';
+import 'styles/App.css';
 
-import Home from '../components/Home';
-import LoginForm from '../components/LoginForm';
-import '../styles/App.css'
+import Home from 'components/Home';
+import LoginForm from 'components/Login/LoginForm';
+import RegisterForm from 'components/Register/RegisterForm';
 
 class App extends Component {
 
@@ -16,14 +16,22 @@ class App extends Component {
     return (
       <Router>
         <div>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/login">Login</Link></li>
-        </ul>
+          <ul className="nav justify-content-end">
+            <li className="nav-item"><Link to="/">Home</Link></li>
+            <li className="nav-item"><a href="#" data-toggle="modal" data-target="#loginModal">Sign In</a></li>
+            <li className="nav-item"><a href="#" data-toggle="modal" data-target="#registerModal">Sign Up</a></li>
+          </ul>
 
-        <Route exact path="/" component={Home}/>
-        <Route path="/login" component={LoginForm}/>
+          <Route exact path="/" component={Home}/>
+
+          <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <LoginForm />
+          </div>
+          <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <RegisterForm />
+          </div>
         </div>
+        
       </Router>
     );
   }

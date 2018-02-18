@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../images/logo.svg';
 import '../styles/App.css';
-import Podcast from '../components/Podcast';
+import Podcast from 'components/Podcast/Podcast';
 
 class Home extends Component {
 
@@ -9,10 +8,9 @@ class Home extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">react-podcaster</h1>
+          <h1 className="App-title">The Podcast Shelf</h1>
         </header>
-        <p className="App-intro">a site to upload and listen to podcasts</p>
+        <p className="App-intro">Listen to all your favorite podcasts here</p>
         <div>
           <Podcast title="TestTitle"/>
         </div>

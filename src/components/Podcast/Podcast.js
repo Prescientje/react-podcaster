@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import '../styles/Podcast.css';
-import { getPodcastInfo } from '../api/podcast.service';
+import './podcast.css';
+import { getPodcastInfo } from 'api/podcast.service';
 
 class Podcast extends Component {
 

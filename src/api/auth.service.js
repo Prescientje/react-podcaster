@@ -1,11 +1,18 @@
 import api from './api';
 
-export function postRegister(data) {
-    //return api.post('auth/register', data);
-    console.log(data);
+export function registerUser(data) {
+    return api.post('auth/register', {
+        username: data.username,
+        name: data.name,
+        email: data.email,
+        password: data.password
+    });
 }
 
-export function postLogin(data) {
-    //return api.post('auth/login', data);
-    console.log(data);
+export function loginUser(data) {
+    return api.post('auth/login', {}, {
+        headers: {
+            'Authorization': `${data.username}:${data.password}`
+        }
+    });
 }
