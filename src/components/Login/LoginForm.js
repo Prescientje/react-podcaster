@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { loginUser } from 'api/auth.service';
+import { loginUser, setTokens } from 'api/auth.service';
+import history from 'containers/history'
 import './login.css';
 
 class LoginForm extends Component {
@@ -24,11 +25,12 @@ class LoginForm extends Component {
         });
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         loginUser({username: this.state.username, password: this.state.password}).then((result) => {
-            console.log('Result', result);
+            setTokens(result.data);
+            history.push('/profile');
         }).catch((error) => {
-            console.error('An error occured', error)
+            alert('An error occured', error);
         })
     }
 
@@ -55,7 +57,7 @@ class LoginForm extends Component {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary" onClick={this.handleSubmit}>Login</button>
                         </div>
                     </form>
                 </div>

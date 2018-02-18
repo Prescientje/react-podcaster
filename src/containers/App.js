@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { Router, Route, Link, Redirect } from 'react-router-dom';
+import history from './history';
 import 'styles/App.css';
 
-import Home from 'components/Home';
+import Home from 'containers/Home/Home';
 import LoginForm from 'components/Login/LoginForm';
 import RegisterForm from 'components/Register/RegisterForm';
+import Profile from 'containers/Profile/Profile';
 
 class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div>
           <nav className="navbar justify-content-end site-nav navbar-dark">
             <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#loginModal">Sign In</a>
@@ -22,6 +24,7 @@ class App extends Component {
           </div>
           
           <Route exact path="/" component={Home}/>
+          <AuthenticatedRoute path="/profile" component={Profile}/>
 
           <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
             <LoginForm />
@@ -35,5 +38,18 @@ class App extends Component {
     );
   }
 }
+
+const AuthenticatedRoute = ({ component: Component, ...rest }) => (  
+  <Route {...rest} render={props => (
+    localStorage.getItem('access_token') ? (
+      <Component {...props}/>
+    ) : (
+      <Redirect to={{
+        pathname: '/home',
+        state: { from: props.location }
+      }}/>
+    )
+  )}/>
+)
 
 export default App;

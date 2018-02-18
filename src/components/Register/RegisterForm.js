@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { registerUser } from 'api/auth.service';
+import { registerUser, setTokens } from 'api/auth.service';
+import history from 'containers/history'
 
 class RegisterForm extends Component {
 
@@ -37,15 +38,16 @@ class RegisterForm extends Component {
         });
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         registerUser({
             username: this.state.username,
             password: this.state.password,
             name: this.state.name,
             email: this.state.email}).then((result) => {
-            console.log('Result', result);
+            setTokens(result.data);
+            history.push('/profile');
         }).catch((error) => {
-            console.error('An error occured', error)
+            alert('An error occured', error);
         })
     }
 
@@ -71,16 +73,16 @@ class RegisterForm extends Component {
                             </div>
                             <div className="form-group">
                                 <label className="form-label">Name</label>
-                                <input type="password" value={this.state.name} onChange={this.handleChangeName}/>
+                                <input value={this.state.name} onChange={this.handleChangeName}/>
                             </div>
                             <div className="form-group">
                                 <label className="form-label">Email</label>
-                                <input type="password" value={this.state.email} onChange={this.handleChangeEmail}/>
+                                <input value={this.state.email} onChange={this.handleChangeEmail}/>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" className="btn btn-primary">Register</button>
+                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Register</button>
                         </div>
                     </form>
                 </div>

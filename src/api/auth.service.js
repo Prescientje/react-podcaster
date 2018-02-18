@@ -16,3 +16,9 @@ export function loginUser(data) {
         }
     });
 }
+
+export function setTokens(tokenObj) {
+    if (tokenObj.access_token) {
+        localStorage.setItem('access_token', tokenObj.access_token);
+    }
+}
