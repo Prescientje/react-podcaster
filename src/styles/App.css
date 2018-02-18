@@ -1,55 +1,28 @@
-.App {
-  text-align: center;
+.site-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 30px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.site-header {
+  background-image: url('../images/podcast-background.jpg');
   color: white;
+  height: 400px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #222;
-}
-
-li {
-  float: right;
-}
-
-li a {
-  display: block;
-  color: white;
+.site-intro {
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
 }
 
-a.link {
-  display: block;
-  color: white !important;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+.site-nav {
+  background-color: black;
 }
 
-li a:hover {
-  background-color: #5363da;
+.site-link {
+  color: whitesmoke;
 }
