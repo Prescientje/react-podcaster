@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { registerUser, setTokens } from 'api/auth.service';
-import history from 'containers/history'
+import { Redirect } from 'react-router';
 
 class RegisterForm extends Component {
 
@@ -10,7 +10,8 @@ class RegisterForm extends Component {
             username: '',
             password: '',
             name: '',
-            email: ''
+            email: '',
+            toProfile: false
         };
     }
 
@@ -39,13 +40,16 @@ class RegisterForm extends Component {
     }
 
     handleSubmit = (event) => {
+
         registerUser({
             username: this.state.username,
             password: this.state.password,
             name: this.state.name,
             email: this.state.email}).then((result) => {
             setTokens(result.data);
-            history.push('/profile');
+            setTimeout(()=>{
+                this.props.history.push('/profile')
+            }, 100);
         }).catch((error) => {
             alert('An error occured', error);
         })

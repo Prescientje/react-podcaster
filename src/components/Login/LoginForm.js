@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { loginUser, setTokens } from 'api/auth.service';
-import history from 'containers/history'
 import './login.css';
 
 class LoginForm extends Component {
@@ -28,8 +27,11 @@ class LoginForm extends Component {
     handleSubmit = (event) => {
         loginUser({username: this.state.username, password: this.state.password}).then((result) => {
             setTokens(result.data);
-            history.push('/profile');
+            setTimeout(()=>{
+                this.props.history.push('/profile')
+            }, 100);
         }).catch((error) => {
+            console.log('Error', error);
             alert('An error occured', error);
         })
     }
