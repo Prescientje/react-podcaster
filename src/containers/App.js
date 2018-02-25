@@ -7,6 +7,7 @@ import Home from 'containers/Home/Home';
 import LoginForm from 'components/Login/LoginForm';
 import RegisterForm from 'components/Register/RegisterForm';
 import Profile from 'containers/Profile/Profile';
+import { isAuthenticated } from 'api/auth.service';
 
 const history = createBrowserHistory();
 
@@ -42,7 +43,7 @@ class App extends Component {
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (  
   <Route {...rest} render={props => (
-    localStorage.getItem('access_token') ? (
+    isAuthenticated() ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{

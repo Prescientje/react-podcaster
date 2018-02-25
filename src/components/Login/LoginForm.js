@@ -27,9 +27,7 @@ class LoginForm extends Component {
     handleSubmit = (event) => {
         loginUser({username: this.state.username, password: this.state.password}).then((result) => {
             setTokens(result.data);
-            setTimeout(()=>{
-                this.props.history.push('/profile')
-            }, 100);
+            this.props.history.push('/profile')
         }).catch((error) => {
             console.log('Error', error);
             alert('An error occured', error);
@@ -46,20 +44,22 @@ class LoginForm extends Component {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form>
                         <div className="modal-body">
-                            <div className="form-group">
-                                <label className="form-label">Username</label>
-                                <input type="text" value={this.state.username} onChange={this.handleChangeUsername}/>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" placeholder="Enter username"
+                                    value={this.state.username} onChange={this.handleChangeUsername} required />
                             </div>
-                            <div className="form-group">
-                                <label className="form-label">Password</label>
-                                <input type="password" value={this.state.password} onChange={this.handleChangePassword}/>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter password"
+                                    value={this.state.password} onChange={this.handleChangePassword} required />
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button className="btn btn-primary" onClick={this.handleSubmit}>Login</button>
+                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss="modal">Login</button>
                         </div>
                     </form>
                 </div>
