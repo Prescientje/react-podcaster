@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './profile.css';
-import Podcasts from 'components/Podcasts/Podcasts';
 
 class Profile extends Component {
 
