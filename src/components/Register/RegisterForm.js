@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { registerUser, setTokens } from 'api/auth.service';
-import { Redirect } from 'react-router';
 
 class RegisterForm extends Component {
 
@@ -10,8 +9,7 @@ class RegisterForm extends Component {
             username: '',
             password: '',
             name: '',
-            email: '',
-            toProfile: false
+            email: ''
         };
     }
 

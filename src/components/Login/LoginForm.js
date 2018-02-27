@@ -29,7 +29,6 @@ class LoginForm extends Component {
             setTokens(result.data);
             this.props.history.push('/profile')
         }).catch((error) => {
-            console.log('Error', error);
             alert('An error occured', error);
         })
     }
