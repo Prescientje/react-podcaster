@@ -28,7 +28,7 @@ class App extends Component {
           </div>
           
           <Route exact path="/" component={Home}/>
-          <Route path="/podcast/:id" component={PlayPodcast}/>
+          <Route path="/podcast/:id" component={PlayPodcastWrapper}/>
           <AuthenticatedRoute path="/profile" component={Profile}/>
 
           <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -42,6 +42,10 @@ class App extends Component {
     );
   }
 }
+
+const PlayPodcastWrapper = ({match}) => (
+  <PlayPodcast id={match.params.id} />
+)
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (  
   <Route {...rest} render={props => (
