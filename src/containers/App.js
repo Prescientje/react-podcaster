@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
-import history from './history';
+import { Router, Route, Link, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import 'styles/App.css';
 
 import Home from 'containers/Home/Home';
@@ -8,6 +8,9 @@ import LoginForm from 'components/Login/LoginForm';
 import RegisterForm from 'components/Register/RegisterForm';
 import Profile from 'containers/Profile/Profile';
 import PlayPodcast from 'containers/PlayPodcast/PlayPodcast';
+import { isAuthenticated } from 'api/auth.service';
+
+const history = createBrowserHistory();
 
 class App extends Component {
 
@@ -29,13 +32,12 @@ class App extends Component {
           <AuthenticatedRoute path="/profile" component={Profile}/>
 
           <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <LoginForm />
+            <LoginForm history={history} />
           </div>
           <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-            <RegisterForm />
+            <RegisterForm history={history} />
           </div>
         </div>
-        
       </Router>
     );
   }
@@ -43,7 +45,7 @@ class App extends Component {
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (  
   <Route {...rest} render={props => (
-    localStorage.getItem('access_token') ? (
+    isAuthenticated() ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{

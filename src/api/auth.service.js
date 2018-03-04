@@ -22,3 +22,8 @@ export function setTokens(tokenObj) {
         localStorage.setItem('access_token', tokenObj.access_token);
     }
 }
+
+export function isAuthenticated() {
+    const token = localStorage.getItem('access_token');
+    return !!token;
+}
