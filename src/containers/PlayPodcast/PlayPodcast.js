@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FilePlayer from 'react-player/lib/players/FilePlayer'
-import { getPodcastInfo } from 'api/podcast.service'
+import FilePlayer from 'react-player/lib/players/FilePlayer';
 import './playpodcast.css';
+import PodcastService from '../../api/podcast.service';
 
 class PlayPodcast extends Component {
 
@@ -14,7 +14,7 @@ class PlayPodcast extends Component {
   }
 
   componentDidMount() {
-    getPodcastInfo(this.props.id).then(payload => {
+    PodcastService.getPodcastInfo(this.props.id).then(payload => {
       this.setState({uploadLocation: payload.data.data.uploadLocation})
     });
   }

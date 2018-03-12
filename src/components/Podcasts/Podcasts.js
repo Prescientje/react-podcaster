@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './podcasts.css';
 import Podcast from './Podcast/Podcast';
-import { getAllPodcasts } from 'api/podcast.service';
+import PodcastService from '../../api/podcast.service';
 
 class Podcasts extends Component {
 
@@ -10,16 +10,14 @@ class Podcasts extends Component {
         this.state = {
             podcasts: []
         };
-
-        this.retrievePodcastList.bind(this);
     }
 
     componentWillMount() {
       this.retrievePodcastList();
     }
   
-    retrievePodcastList() {
-        getAllPodcasts().then(payload => {
+    retrievePodcastList = () => {
+        PodcastService.getAllPodcasts().then(payload => {
             console.log(payload.data);
             const podcastList = payload.data.data;
             if ( podcastList && podcastList.length > 0 ) {

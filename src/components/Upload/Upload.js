@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createPodcast } from 'api/podcast.service';
+import PodcastService from '../../api/podcast.service';
 
 class Upload extends Component {
 
@@ -10,9 +10,6 @@ class Upload extends Component {
             description: '',
             uploader: 'jedwards'
         };
-    }
-
-    componentDidMount() {
     }
 
     handleChangeTitle = (event) => {
@@ -28,7 +25,9 @@ class Upload extends Component {
     }
 
     create() {
-        createPodcast(this.state.title, this.state.description, this.state.uploader).then((result) => console.log(result));
+        PodcastService.createPodcast(this.state.title, this.state.description, this.state.uploader)
+            .then((result) => console.log(result))
+            .catch((err) => console.error('Error', err));
     }
 
   render() {

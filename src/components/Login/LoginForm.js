@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { loginUser, setTokens } from 'api/auth.service';
 import './login.css';
+import AuthService from '../../api/auth.service';
 
 class LoginForm extends Component {
 
@@ -25,9 +25,9 @@ class LoginForm extends Component {
     }
 
     handleSubmit = (event) => {
-        loginUser({username: this.state.username, password: this.state.password}).then((result) => {
-            setTokens(result.data);
-            this.props.history.push('/profile')
+        AuthService.loginUser({username: this.state.username, password: this.state.password}).then((result) => {
+            AuthService.setTokens(result.data);
+            this.props.history.push('/profile');
         }).catch((error) => {
             alert('An error occured', error);
         })

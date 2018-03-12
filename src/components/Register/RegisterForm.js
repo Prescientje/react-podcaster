@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { registerUser, setTokens } from 'api/auth.service';
+import AuthService from '../../api/auth.service';
 
 class RegisterForm extends Component {
 
@@ -38,13 +38,12 @@ class RegisterForm extends Component {
     }
 
     handleSubmit = (event) => {
-
-        registerUser({
+        AuthService.registerUser({
             username: this.state.username,
             password: this.state.password,
             name: this.state.name,
             email: this.state.email}).then((result) => {
-            setTokens(result.data);
+            AuthService.setTokens(result.data);
             this.props.history.push('/profile')
         }).catch((error) => {
             alert('An error occured', error);

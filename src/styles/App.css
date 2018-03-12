@@ -26,3 +26,7 @@
 .site-link {
   color: whitesmoke;
 }
+
+.site-nav span {
+  display: flex;
+}

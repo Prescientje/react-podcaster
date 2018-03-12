@@ -1,26 +1,51 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, Redirect } from 'react-router-dom';
+import { Router, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import 'styles/App.css';
 
-import Home from 'containers/Home/Home';
-import LoginForm from 'components/Login/LoginForm';
-import RegisterForm from 'components/Register/RegisterForm';
-import Profile from 'containers/Profile/Profile';
-import PlayPodcast from 'containers/PlayPodcast/PlayPodcast';
-import { isAuthenticated } from 'api/auth.service';
+import Home from './Home/Home';
+import LoginForm from '../components/Login/LoginForm';
+import RegisterForm from '../components/Register/RegisterForm';
+import Profile from './Profile/Profile';
+import PlayPodcast from './PlayPodcast/PlayPodcast';
+import AuthService from '../api/auth.service';
+import LogoutModal from '../components/Logout/LogoutModal';
 
 const history = createBrowserHistory();
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: AuthService.isAuthenticated()
+    }
+    history.listen(() => {
+      this.handleRoutingUpdate();
+    })
+  }
+
+  handleRoutingUpdate() {
+    this.setState({
+      authenticated: AuthService.isAuthenticated()
+    });
+  }
 
   render() {
     return (
       <Router history={history}>
         <div>
           <nav className="navbar justify-content-end site-nav navbar-dark">
-            <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#loginModal">Sign In</a>
-            <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#registerModal">Sign Up</a>
+            {
+              this.state.authenticated ? (
+                <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#logoutModal">Logout</a>
+              ) : (
+                <span>
+                  <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#loginModal">Sign In</a>
+                  <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#registerModal">Sign Up</a>
+                </span>
+              )
+            }
           </nav>
           <div className="site-header">
             <h1 className="site-title">The Podcast Shelf</h1>
@@ -31,11 +56,14 @@ class App extends Component {
           <Route path="/podcast/:id" component={PlayPodcastWrapper}/>
           <AuthenticatedRoute path="/profile" component={Profile}/>
 
-          <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
             <LoginForm history={history} />
           </div>
-          <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+          <div className="modal fade" id="registerModal" tabIndex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
             <RegisterForm history={history} />
+          </div>
+          <div className="modal fade" id="logoutModal" tabIndex="-1" role="dialog" aria-labelledby="logoutModal" aria-hidden="true">
+            <LogoutModal history={history} />
           </div>
         </div>
       </Router>
@@ -49,7 +77,7 @@ const PlayPodcastWrapper = ({match}) => (
 
 const AuthenticatedRoute = ({ component: Component, ...rest }) => (  
   <Route {...rest} render={props => (
-    isAuthenticated() ? (
+    AuthService.isAuthenticated() ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{
