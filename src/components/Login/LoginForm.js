@@ -45,14 +45,14 @@ class LoginForm extends Component {
                     </div>
                     <form>
                         <div className="modal-body">
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter username"
+                            <div className="form-group">
+                                <label htmlFor="username">Username</label>
+                                <input type="text" className="form-control" id="username" placeholder="Enter username"
                                     value={this.state.username} onChange={this.handleChangeUsername} required />
                             </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password"
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <input type="password" className="form-control" id="password" placeholder="Enter password"
                                     value={this.state.password} onChange={this.handleChangePassword} required />
                             </div>
                         </div>

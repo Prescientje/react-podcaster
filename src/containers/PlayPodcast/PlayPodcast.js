@@ -8,9 +8,15 @@ class PlayPodcast extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.id
+      id: this.props.id,
+      uploadLocation: ""
     }
-    getPodcastInfo(this.props.id).then(payload => console.log(payload.data));
+  }
+
+  componentDidMount() {
+    getPodcastInfo(this.props.id).then(payload => {
+      this.setState({uploadLocation: payload.data.data.uploadLocation})
+    });
   }
 
   render() {
@@ -18,10 +24,8 @@ class PlayPodcast extends Component {
       <div className="play-podcast">
         PlayPodcast Page !!
         <br />
-        id: {this.state.id}
-        <br />
         <FilePlayer
-          url='https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3'
+          url={this.state.uploadLocation}
           controls
           config={{file: { forceAudio: true } }}
         />
