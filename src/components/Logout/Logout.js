@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AuthService from '../../api/auth.service';
 
-class LogoutModal extends Component {
+class Logout extends Component {
 
     handleLogout = () => {
         AuthService.logoutUser();
@@ -28,4 +28,4 @@ class LogoutModal extends Component {
     }
 }
 
-export default LogoutModal;
+export default Logout;

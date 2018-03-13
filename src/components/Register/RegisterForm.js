@@ -60,16 +60,16 @@ class RegisterForm extends Component {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.register}>
                         <div className="modal-body">
                             <div className="form-group">
-                                <label htmlFor="username">Username</label>
-                                <input type="text" className="form-control" id="username" placeholder="Enter username"
+                                <label htmlFor="registerUsername">Username</label>
+                                <input type="text" className="form-control" id="registerUsername" placeholder="Enter username"
                                     value={this.state.username} onChange={this.handleChangeUsername} required />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="password">Password</label>
-                                <input type="password" className="form-control" id="password" placeholder="Enter password"
+                                <label htmlFor="registerPassword">Password</label>
+                                <input type="password" className="form-control" id="registerPassword" placeholder="Enter password"
                                     value={this.state.password} onChange={this.handleChangePassword} required />
                             </div>
                             <div className="form-group">
@@ -85,7 +85,7 @@ class RegisterForm extends Component {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss="modal">Register</button>
+                            <button type="button" className="btn btn-primary" onClick={this.register} data-dismiss="modal">Register</button>
                         </div>
                     </form>
                 </div>

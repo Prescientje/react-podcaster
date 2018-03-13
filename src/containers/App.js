@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import 'styles/App.css';
+import '../styles/App.css';
 
 import Home from './Home/Home';
 import LoginForm from '../components/Login/LoginForm';
@@ -9,7 +9,8 @@ import RegisterForm from '../components/Register/RegisterForm';
 import Profile from './Profile/Profile';
 import PlayPodcast from './PlayPodcast/PlayPodcast';
 import AuthService from '../api/auth.service';
-import LogoutModal from '../components/Logout/LogoutModal';
+import Logout from '../components/Logout/Logout';
+import Upload from '../components/Upload/UploadForm';
 
 const history = createBrowserHistory();
 
@@ -38,7 +39,10 @@ class App extends Component {
           <nav className="navbar justify-content-end site-nav navbar-dark">
             {
               this.state.authenticated ? (
-                <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                <span>
+                  <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#uploadModal">Upload</a>
+                  <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                </span>
               ) : (
                 <span>
                   <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#loginModal">Sign In</a>
@@ -63,7 +67,10 @@ class App extends Component {
             <RegisterForm history={history} />
           </div>
           <div className="modal fade" id="logoutModal" tabIndex="-1" role="dialog" aria-labelledby="logoutModal" aria-hidden="true">
-            <LogoutModal history={history} />
+            <Logout history={history} />
+          </div>
+          <div className="modal fade" id="uploadModal" tabIndex="-1" role="dialog" aria-labelledby="uploadModal" aria-hidden="true">
+            <Upload history={history} />
           </div>
         </div>
       </Router>

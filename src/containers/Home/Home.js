@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './home.css';
-import Podcasts from 'components/Podcasts/Podcasts';
+import Podcasts from '../../components/Podcasts/Podcasts';
 
 class Home extends Component {
 

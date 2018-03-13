@@ -29,6 +29,12 @@ const AuthService = {
     isAuthenticated: () => {
         const token = localStorage.getItem('access_token');
         return !!token;
+    },
+    getBearerToken: () => {
+        const token = localStorage.getItem('access_token');
+        if (!!token) {
+            return `Bearer ${token}`;
+        }
     }
 };
 
