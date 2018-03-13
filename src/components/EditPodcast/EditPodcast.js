@@ -9,7 +9,8 @@ class EditPodcast extends Component {
         this.state = {
             title: '',
             description: '',
-            uploader: ''
+            uploader: '',
+            podcastFile: ''
         };
     }
 
@@ -36,6 +37,18 @@ class EditPodcast extends Component {
         console.log('Updating podcast');
     }
 
+    uploadPodcast = () => {
+        console.log('Uploading podcast', this.state.podcastFile);
+    }
+
+    setPodcastFile = (event) => {
+        if (event.target.files.length > 0) {
+            this.setState({
+                podcastFile: event.target.files[0]
+            });
+        }
+    }
+
     render() {
         return (
             <span>
@@ -57,6 +70,15 @@ class EditPodcast extends Component {
                         <input type="text" className="form-control" id="podcastUploader" value={this.state.uploader} readOnly/>
                     </div>
                 </form>
+                <div className="input-group mb-3 upload-podcast">
+                    <div className="custom-file">
+                        <input type="file" className="custom-file-input" id="podcastFile" onChange={this.setPodcastFile} />
+                        <label className="custom-file-label" htmlFor="podcastFile">Choose file</label>
+                    </div>
+                    <div className="input-group-append">
+                        <span className="input-group-text upload-button" onClick={this.uploadPodcast}>Upload</span>
+                    </div>
+                </div>
             </span>
         );
     }
