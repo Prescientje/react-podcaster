@@ -33,7 +33,13 @@ class Upload extends Component {
     create = (event) => {
         PodcastService.createPodcast(this.state.title, this.state.description, this.state.uploader)
             .then((result) => {
-                console.log(result);
+                const podcastData = result.data;
+                if (podcastData && podcastData.data) {
+                    const podcastId = podcastData.data._id;
+                    this.props.history.push(`/edit/${podcastId}`);
+                } else {
+                    console.error('Podcast data dne', podcastData);
+                }
             })
             .catch((err) => console.error('Error', err));
     }
@@ -53,17 +59,17 @@ class Upload extends Component {
                         <div className="form-group">
                             <label htmlFor="title">Title</label>
                             <input type="text" className="form-control" id="title" placeholder="Enter podcast title"
-                            value={this.state.title} onChange={this.handleChangeTitle} required />
+                                value={this.state.title} onChange={this.handleChangeTitle} required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="description">Description</label>
-                            <input type="text" className="form-control" id="description" placeholder="Enter description"
-                            value={this.state.description} onChange={this.handleChangeDescription} required />
+                            <textarea className="form-control" id="description" placeholder="Enter description" rows="3"
+                                value={this.state.description} onChange={this.handleChangeDescription} required />
                         </div>
                         <div className="form-group">
                             <label htmlFor="uploader">Uploader Username</label>
                             <input type="text" className="form-control" id="uploader" placeholder="Enter your username"
-                            value={this.state.uploader} onChange={this.handleChangeUploader} required />
+                                value={this.state.uploader} onChange={this.handleChangeUploader} required />
                         </div>
                     </div>
                     <div className="modal-footer">

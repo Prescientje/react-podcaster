@@ -3,14 +3,16 @@ import { Router, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import '../styles/App.css';
 
+import AuthService from '../api/auth.service';
+
 import Home from './Home/Home';
 import LoginForm from '../components/Login/LoginForm';
 import RegisterForm from '../components/Register/RegisterForm';
 import Profile from './Profile/Profile';
 import PlayPodcast from './PlayPodcast/PlayPodcast';
-import AuthService from '../api/auth.service';
 import Logout from '../components/Logout/Logout';
 import Upload from '../components/Upload/UploadForm';
+import EditPodcast from '../components/EditPodcast/EditPodcast';
 
 const history = createBrowserHistory();
 
@@ -59,6 +61,7 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route path="/podcast/:id" component={PlayPodcastWrapper}/>
           <AuthenticatedRoute path="/profile" component={Profile}/>
+          <AuthenticatedRoute path="/edit/:id" component={EditPodcast} history={history}/>
 
           <div className="modal fade" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
             <LoginForm history={history} />
