@@ -13,6 +13,11 @@ const PodcastService = {
             headers: { 'Authorization': AuthService.getBearerToken() }
         });
     },
+    updatePodcast: (id, title, description, uploader) => {
+        return api.put(`podcast/${id}`, { title, description, uploader }, { 
+            headers: { 'Authorization': AuthService.getBearerToken() }
+        });
+    },
     uploadPodcast: (id) => {
         return api.post(`podcast/${id}/upload`);
     }

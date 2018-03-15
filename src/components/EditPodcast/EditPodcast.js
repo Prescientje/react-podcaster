@@ -7,6 +7,7 @@ class EditPodcast extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             title: '',
             description: '',
             uploader: '',
@@ -21,8 +22,10 @@ class EditPodcast extends Component {
     retrievePodcastWithId = (id) => {
         PodcastService.getPodcastInfo(id).then((podcastInfo) => {
             const podcastData = podcastInfo.data;
+            console.log('podcast data', podcastData);
             if (podcastData && podcastData.data) {
                 this.setState({
+                    id: podcastData.data._id,
                     title: podcastData.data.title,
                     description: podcastData.data.description,
                     uploader: podcastData.data.uploader
@@ -34,7 +37,9 @@ class EditPodcast extends Component {
     }
 
     updatePodcast = () => {
-        console.log('Updating podcast');
+        PodcastService.updatePodcast(this.state.id, this.state.title, this.state.description, this.state.uploader).then((updatedPodcast) => {
+            console.log('Updated podcast', updatedPodcast);
+        }).catch((error) => console.error('Error', error));
     }
 
     uploadPodcast = () => {
@@ -47,6 +52,18 @@ class EditPodcast extends Component {
                 podcastFile: event.target.files[0]
             });
         }
+    }
+
+    handleChangeTitle = (event) => {
+        this.setState({
+            title: event.target.value
+        });
+    }
+
+    handleChangeDescription = (event) => {
+        this.setState({
+            description: event.target.value
+        });
     }
 
     render() {

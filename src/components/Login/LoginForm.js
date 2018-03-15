@@ -27,7 +27,7 @@ class LoginForm extends Component {
     login = (event) => {
         AuthService.loginUser({username: this.state.username, password: this.state.password}).then((result) => {
             AuthService.setTokens(result.data);
-            this.props.history.push('/profile');
+            this.props.history.push('/');
         }).catch((error) => {
             alert('An error occured', error);
         })

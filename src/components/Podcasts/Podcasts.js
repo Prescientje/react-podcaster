@@ -18,7 +18,6 @@ class Podcasts extends Component {
   
     retrievePodcastList = () => {
         PodcastService.getAllPodcasts().then(payload => {
-            console.log(payload.data);
             const podcastList = payload.data.data;
             if ( podcastList && podcastList.length > 0 ) {
                 this.setState({
@@ -33,7 +32,7 @@ class Podcasts extends Component {
             <div className="podcast-list">
                 {
                     this.state.podcasts ? this.state.podcasts.map((podcast, index) => {
-                        return (<Podcast info={podcast} key={index} />);
+                        return (<Podcast info={podcast} key={index} isAuthenticated={this.props.isAuthenticated} />);
                     }) : (<span>Loading...</span>)
                 }
             </div>

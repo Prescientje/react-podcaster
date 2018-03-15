@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
+import { Router, Route, Redirect, Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import '../styles/App.css';
 
@@ -42,6 +42,7 @@ class App extends Component {
             {
               this.state.authenticated ? (
                 <span>
+                  <Link to="profile" className="nav-link site-link">Profile</Link>
                   <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#uploadModal">Upload</a>
                   <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#logoutModal">Logout</a>
                 </span>
