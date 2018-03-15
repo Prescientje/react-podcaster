@@ -11,7 +11,8 @@ class EditPodcast extends Component {
             title: '',
             description: '',
             uploader: '',
-            podcastFile: ''
+            podcastFile: '',
+            filename: 'Choose a file...'
         };
     }
 
@@ -44,12 +45,16 @@ class EditPodcast extends Component {
 
     uploadPodcast = () => {
         console.log('Uploading podcast', this.state.podcastFile);
+        PodcastService.uploadPodcast(this.state.id, this.state.podcastFile).then((res) => {
+            this.props.history.push('/');
+        }).catch(err => console.error('Error', err));
     }
 
     setPodcastFile = (event) => {
         if (event.target.files.length > 0) {
             this.setState({
-                podcastFile: event.target.files[0]
+                podcastFile: event.target.files[0],
+                filename: event.target.files[0].name
             });
         }
     }
@@ -90,7 +95,7 @@ class EditPodcast extends Component {
                 <div className="input-group mb-3 upload-podcast">
                     <div className="custom-file">
                         <input type="file" className="custom-file-input" id="podcastFile" onChange={this.setPodcastFile} />
-                        <label className="custom-file-label" htmlFor="podcastFile">Choose file</label>
+                        <label className="custom-file-label" htmlFor="podcastFile">{this.state.filename}</label>
                     </div>
                     <div className="input-group-append">
                         <span className="input-group-text upload-button" onClick={this.uploadPodcast}>Upload</span>

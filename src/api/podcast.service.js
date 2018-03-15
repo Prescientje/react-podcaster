@@ -18,8 +18,16 @@ const PodcastService = {
             headers: { 'Authorization': AuthService.getBearerToken() }
         });
     },
-    uploadPodcast: (id) => {
-        return api.post(`podcast/${id}/upload`);
+    uploadPodcast: (id, file) => {
+        var data = new FormData();
+        data.append('podcast', file);
+        var config = {
+            onUploadProgress: function(progressEvent) {
+              var percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+            },
+            headers: { 'Authorization': AuthService.getBearerToken() }
+        };
+        return api.post(`podcast/${id}/upload`, data, config);
     }
 };
 
