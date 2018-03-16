@@ -37,7 +37,7 @@ class RegisterForm extends Component {
         });
     }
 
-    handleSubmit = (event) => {
+    register = (event) => {
         AuthService.registerUser({
             username: this.state.username,
             password: this.state.password,
