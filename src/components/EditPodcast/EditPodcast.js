@@ -16,7 +16,7 @@ class EditPodcast extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this.retrievePodcastWithId(this.props.match.params.id);
     }
   

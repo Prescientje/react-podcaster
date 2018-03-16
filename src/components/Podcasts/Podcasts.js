@@ -12,7 +12,7 @@ class Podcasts extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
       this.retrievePodcastList();
     }
   
