@@ -1,0 +1,16 @@
+.edit-podcast {
+    margin: 30px;
+}
+
+.update-podcast-btn {
+    float: right;
+    margin-right: 30px;
+}
+
+.upload-podcast {
+    padding: 0px 30px;
+}
+
+.upload-button {
+    cursor: pointer;
+}

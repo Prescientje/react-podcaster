@@ -28,6 +28,11 @@ class Podcast extends Component {
                     <h5 className="card-title">{this.state.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">{this.state.uploader}</h6>
                     <p className="card-text">{this.state.description}</p>
+                    {
+                        this.props.isAuthenticated ? (
+                            <Link to={`/edit/${this.state.id}`} className="card-link btn-primary btn listen-link">Edit</Link>
+                        ) : (<span></span>)
+                    }
                     <Link to={`/podcast/${this.state.id}`} className="card-link btn-primary btn listen-link">Listen</Link>
                 </div>
                 <div className="card-footer text-muted">

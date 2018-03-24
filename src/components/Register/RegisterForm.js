@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { registerUser, setTokens } from 'api/auth.service';
+import AuthService from '../../api/auth.service';
 
 class RegisterForm extends Component {
 
@@ -37,14 +37,13 @@ class RegisterForm extends Component {
         });
     }
 
-    handleSubmit = (event) => {
-
-        registerUser({
+    register = (event) => {
+        AuthService.registerUser({
             username: this.state.username,
             password: this.state.password,
             name: this.state.name,
             email: this.state.email}).then((result) => {
-            setTokens(result.data);
+            AuthService.setTokens(result.data);
             this.props.history.push('/profile')
         }).catch((error) => {
             alert('An error occured', error);
@@ -61,32 +60,32 @@ class RegisterForm extends Component {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.register}>
                         <div className="modal-body">
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter username"
+                            <div className="form-group">
+                                <label htmlFor="registerUsername">Username</label>
+                                <input type="text" className="form-control" id="registerUsername" placeholder="Enter username"
                                     value={this.state.username} onChange={this.handleChangeUsername} required />
                             </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter password"
+                            <div className="form-group">
+                                <label htmlFor="registerPassword">Password</label>
+                                <input type="password" className="form-control" id="registerPassword" placeholder="Enter password"
                                     value={this.state.password} onChange={this.handleChangePassword} required />
                             </div>
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter name"
+                            <div className="form-group">
+                                <label htmlFor="name">Name</label>
+                                <input type="text" className="form-control" id="name" placeholder="Enter name"
                                     value={this.state.name} onChange={this.handleChangeName} required />
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email"
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input type="email" className="form-control" id="email" placeholder="Enter email"
                                     value={this.state.email} onChange={this.handleChangeEmail} required />
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={this.handleSubmit} data-dismiss="modal">Register</button>
+                            <button type="button" className="btn btn-primary" onClick={this.register} data-dismiss="modal">Register</button>
                         </div>
                     </form>
                 </div>
