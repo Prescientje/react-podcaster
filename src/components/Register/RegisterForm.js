@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 import AuthService from '../../api/auth.service';
+import { addAlert } from '../../store/actions/alerts';
 
 class RegisterForm extends Component {
 
@@ -38,16 +43,16 @@ class RegisterForm extends Component {
     }
 
     register = (event) => {
+        const { addAlert } = this.props.actions;
         AuthService.registerUser({
             username: this.state.username,
             password: this.state.password,
             name: this.state.name,
             email: this.state.email}).then((result) => {
             AuthService.setTokens(result.data);
-            this.props.history.push('/profile')
-        }).catch((error) => {
-            alert('An error occured', error);
-        })
+            this.props.history.push('/profile');
+            addAlert({ text: 'Successfully registered', color: 'success' });
+        }).catch((error) => addAlert({ text: 'Unable to register user', color: 'danger' }))
     }
 
     render() {
@@ -94,4 +99,14 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm;
+RegisterForm.propTypes = {
+    actions: PropTypes.shape({
+        addAlert: PropTypes.func.isRequired
+    }).isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({ addAlert }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(RegisterForm);

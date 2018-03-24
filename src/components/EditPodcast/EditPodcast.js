@@ -37,7 +37,7 @@ class EditPodcast extends Component {
                     uploader: podcastData.data.uploader
                 });
             } else {
-                addAlert({ text: 'Podcast data does not exist', color: 'danger' })
+                addAlert({ text: 'Podcast data does not exist', color: 'danger' });
             }
         }).catch((err) => addAlert({ text: 'Failed to retrieve podcast information', color: 'danger' }));
     }

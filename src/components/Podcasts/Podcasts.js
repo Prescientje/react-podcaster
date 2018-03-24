@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 import './podcasts.css';
 import Podcast from './Podcast/Podcast';
 import PodcastService from '../../api/podcast.service';
+import { addAlert } from '../../store/actions/alerts';
 
 class Podcasts extends Component {
 
@@ -15,8 +20,9 @@ class Podcasts extends Component {
     componentDidMount() {
       this.retrievePodcastList();
     }
-  
+
     retrievePodcastList = () => {
+        const { addAlert } = this.props.actions;
         PodcastService.getAllPodcasts().then(payload => {
             const podcastList = payload.data.data;
             if ( podcastList && podcastList.length > 0 ) {
@@ -24,7 +30,7 @@ class Podcasts extends Component {
                     podcasts: podcastList
                 });
             }
-        }).catch(err => console.error(err));
+        }).catch(err => addAlert({ text: 'Unable to retrieve the list of podcasts', color: 'danger' }));
     }
 
     render() {
@@ -40,4 +46,14 @@ class Podcasts extends Component {
     }
 }
 
-export default Podcasts;
+Podcasts.propTypes = {
+    actions: PropTypes.shape({
+        addAlert: PropTypes.func.isRequired
+    }).isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({ addAlert }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(Podcasts);

@@ -2,10 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Alert from './Alert/Alert';
+import './Alerts.css';
 
 const Alerts = ({ alerts }) => {
     return (
-        <div>
+        <div className="alerts">
             {
                 alerts.map(alert => {
                     const { id } = alert;

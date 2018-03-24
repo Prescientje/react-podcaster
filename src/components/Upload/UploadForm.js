@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 import PodcastService from '../../api/podcast.service';
+import { addAlert } from '../../store/actions/alerts';
 
 class Upload extends Component {
 
@@ -31,17 +36,19 @@ class Upload extends Component {
     }
 
     create = (event) => {
+        const { addAlert } = this.props.actions;
         PodcastService.createPodcast(this.state.title, this.state.description, this.state.uploader)
             .then((result) => {
                 const podcastData = result.data;
                 if (podcastData && podcastData.data) {
                     const podcastId = podcastData.data._id;
                     this.props.history.push(`/edit/${podcastId}`);
+                    addAlert({ text: 'Successfully created a new podcast', color: 'success' });
                 } else {
-                    console.error('Podcast data dne', podcastData);
+                    addAlert({ text: 'An error occured while creating a podcast', color: 'danger' });
                 }
             })
-            .catch((err) => console.error('Error', err));
+            .catch((err) => addAlert({ text: 'Failed to create a new podcast', color: 'danger' }));
     }
 
   render() {
@@ -83,4 +90,14 @@ class Upload extends Component {
   }
 }
 
-export default Upload;
+Upload.propTypes = {
+    actions: PropTypes.shape({
+        addAlert: PropTypes.func.isRequired
+    }).isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({ addAlert }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(Upload);
