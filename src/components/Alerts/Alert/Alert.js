@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import './Alert.css'
 
 class Alert extends Component {
     render() {
         return (
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div className={'alert alert-dismissible fade show alert-' + this.props.color} role="alert">
                 {this.props.text}
-                <button type="button" onClick={this.props.onDismissClick}>
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -20,7 +21,6 @@ class Alert extends Component {
 
 Alert.propTypes = {
     color: PropTypes.string.isRequired,
-    onDismissClick: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired
 };
 

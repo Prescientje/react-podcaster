@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, Redirect, Link } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { addAlert } from "../store/actions/alerts";
 import '../styles/App.css';
 
 import AuthService from '../api/auth.service';
@@ -39,11 +35,6 @@ class App extends Component {
         });
     }
 
-    handleClick = () => {
-        const { addAlert } = this.props.actions;
-        addAlert({ text: "Hello, World!" });
-    }
-
     render() {
         return (
             <Router history={history}>
@@ -58,18 +49,17 @@ class App extends Component {
                                     <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#logoutModal">Logout</a>
                                 </span>
                             ) : (
-                                    <span>
-                                        <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#loginModal">Sign In</a>
-                                        <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#registerModal">Sign Up</a>
-                                    </span>
-                                )
+                                <span>
+                                    <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#loginModal">Sign In</a>
+                                    <a href="#" className="nav-link site-link" data-toggle="modal" data-target="#registerModal">Sign Up</a>
+                                </span>
+                            )
                         }
                     </nav>
                     <div className="site-header">
                         <h1 className="site-title">The Podcast Shelf</h1>
                         <h4 className="site-intro">Listen to all your favorite podcasts here</h4>
                     </div>
-                    <button onClick={this.handleClick}>Test alert???</button>
 
                     <Route exact path="/" component={Home} />
                     <Route path="/podcast/:id" component={PlayPodcastWrapper} />
@@ -111,14 +101,4 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => (
     )} />
 )
 
-App.propTypes = {
-    actions: PropTypes.shape({
-        addAlert: PropTypes.func.isRequired
-    }).isRequired
-};
-
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ addAlert }, dispatch)
-});
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;
