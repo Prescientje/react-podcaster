@@ -23,7 +23,6 @@ class EditPodcast extends Component {
     retrievePodcastWithId = (id) => {
         PodcastService.getPodcastInfo(id).then((podcastInfo) => {
             const podcastData = podcastInfo.data;
-            console.log('podcast data', podcastData);
             if (podcastData && podcastData.data) {
                 this.setState({
                     id: podcastData.data._id,
@@ -44,7 +43,6 @@ class EditPodcast extends Component {
     }
 
     uploadPodcast = () => {
-        console.log('Uploading podcast', this.state.podcastFile);
         PodcastService.uploadPodcast(this.state.id, this.state.podcastFile).then((res) => {
             this.props.history.push('/');
         }).catch(err => console.error('Error', err));
