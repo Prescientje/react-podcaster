@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 import './login.css';
 import AuthService from '../../api/auth.service';
+import { addAlert } from '../../store/actions/alerts';
 
 class LoginForm extends Component {
 
@@ -25,12 +30,11 @@ class LoginForm extends Component {
     }
 
     login = (event) => {
+        const { addAlert } = this.props.actions;
         AuthService.loginUser({username: this.state.username, password: this.state.password}).then((result) => {
             AuthService.setTokens(result.data);
             this.props.history.push('/');
-        }).catch((error) => {
-            alert('An error occured', error);
-        })
+        }).catch((error) => addAlert({ text: 'Failed to login', color: 'danger' }))
     }
 
     render() {
@@ -67,4 +71,14 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+LoginForm.propTypes = {
+    actions: PropTypes.shape({
+        addAlert: PropTypes.func.isRequired
+    }).isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({ addAlert }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(LoginForm);

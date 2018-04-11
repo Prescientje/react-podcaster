@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
 import './EditPodcast.css'
 import PodcastService from '../../api/podcast.service';
+import { addAlert } from '../../store/actions/alerts';
 
 class EditPodcast extends Component {
 
@@ -19,8 +24,9 @@ class EditPodcast extends Component {
     componentDidMount() {
       this.retrievePodcastWithId(this.props.match.params.id);
     }
-  
+
     retrievePodcastWithId = (id) => {
+        const { addAlert } = this.props.actions;
         PodcastService.getPodcastInfo(id).then((podcastInfo) => {
             const podcastData = podcastInfo.data;
             if (podcastData && podcastData.data) {
@@ -31,21 +37,24 @@ class EditPodcast extends Component {
                     uploader: podcastData.data.uploader
                 });
             } else {
-                console.error('Podcast data does not exist', podcastData);
+                addAlert({ text: 'Podcast data does not exist', color: 'danger' });
             }
-        }).catch((err) => console.error('error', err));
+        }).catch((err) => addAlert({ text: 'Failed to retrieve podcast information', color: 'danger' }));
     }
 
     updatePodcast = () => {
+        const { addAlert } = this.props.actions;
         PodcastService.updatePodcast(this.state.id, this.state.title, this.state.description, this.state.uploader).then((updatedPodcast) => {
-            console.log('Updated podcast', updatedPodcast);
-        }).catch((error) => console.error('Error', error));
+            addAlert({ text: 'Updated podcast successfully', color: 'success' });
+        }).catch((error) => addAlert({ text: 'Podcast failed to update', color: 'danger' }));
     }
 
     uploadPodcast = () => {
+        const { addAlert } = this.props.actions;
         PodcastService.uploadPodcast(this.state.id, this.state.podcastFile).then((res) => {
             this.props.history.push('/');
-        }).catch(err => console.error('Error', err));
+            addAlert({ text: 'Uploaded podcast successfully', color: 'success' });
+        }).catch(err => addAlert({ text: 'Failed to upload podcast', color: 'danger' }));
     }
 
     setPodcastFile = (event) => {
@@ -104,4 +113,14 @@ class EditPodcast extends Component {
     }
 }
 
-export default EditPodcast;
+EditPodcast.propTypes = {
+    actions: PropTypes.shape({
+        addAlert: PropTypes.func.isRequired
+    }).isRequired
+};
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({ addAlert }, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(EditPodcast);
